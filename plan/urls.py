@@ -5,5 +5,5 @@ urlpatterns = [
     path('', views.apiOverview, name='api-overview'),
     path('plan-list/', views.planList, name='plan-list'),
     path('plan-create/', views.planCreate, name='plan-create'),
-    path('plan-update/<int:pk>/', views.planUpdate),
+    path('plan-update/<int:pk>/', views.planUpdate, name='plan-update'),
 ]

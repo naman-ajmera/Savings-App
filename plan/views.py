@@ -17,17 +17,17 @@ def apiOverview(request):
 @api_view(['GET'])
 def planList(request):
     plan = Plan.objects.all()
-    plan_serializer = PlanSerializer(plan, many=True)
-    return Response(plan_serializer.data)
+    planSerializer = PlanSerializer(plan, many=True)
+    return Response(planSerializer.data)
 
 @api_view(['POST'])
 def planCreate(request):
-    plan_data = JSONParser().parse(request)
-    plan_serializer = PlanSerializer(data=plan_data)
-    if plan_serializer.is_valid():
-        plan_serializer.save()
-        return Response(plan_serializer.data, status=status.HTTP_201_CREATED) 
-    return Response(plan_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    planData = JSONParser().parse(request)
+    planSerializer = PlanSerializer(data=planData)
+    if planSerializer.is_valid():
+        planSerializer.save()
+        return Response(planSerializer.data, status=status.HTTP_201_CREATED) 
+    return Response(planSerializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 @api_view(['PUT'])
 def planUpdate(request, pk):
