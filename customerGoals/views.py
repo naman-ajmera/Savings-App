@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date, datetime
 from rest_framework.parsers import JSONParser 
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -20,7 +20,6 @@ def goalCreate(request):
     planData = plan.values()[0]
 
     promotionType = planData['promotionType']
-    
     goalData['benefitPercentage'] = planData['benefitPercentage']
     goalData['benefitType'] = planData['benefitType']
 
@@ -35,8 +34,8 @@ def goalCreate(request):
 
     elif promotionType == 'timeRange':
         promotionEndDate = planData['promotionEndDate']
-        if promotionEndDate > date.today():
-            return Response({"message": "This promotion is already expired"}, status=status.HTTP_400_BAD_REQUEST)
+        if promotionEndDate < date.today():
+            return Response({"message": "This promotion is already expired on {}".format(promotionEndDate)}, status=status.HTTP_400_BAD_REQUEST)
     
     goal_serializer = CustomerGoalsSerializer(data=goalData)
     if goal_serializer.is_valid():

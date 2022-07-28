@@ -1,3 +1,4 @@
+from cmath import nan
 from django.db import models
 
 # Create your models here.
@@ -20,11 +21,10 @@ class Plan(models.Model):
     tenureOptions = models.ManyToManyField(Tenure)
     benefitPercentage = models.IntegerField()
     benefitType = models.CharField(max_length=100)
-    #promotion = models.CharField(max_length=100)
     promotionType = models.CharField(max_length=100, blank=True)
     promotionStartDate = models.DateField(blank=True, null=True)
     promotionEndDate = models.DateField(blank=True, null=True)
-    promotionCountByUser = models.IntegerField(blank=True, default=0)
+    promotionCountByUser = models.IntegerField(blank=True,null=True, default=nan)
     created_at = models.DateTimeField(auto_now=True)
     isPromotionActive = models.BooleanField(default=False)
 
